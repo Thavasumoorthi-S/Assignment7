@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class CoordinateException implements Cloneable {
+class CoordinateException {
     private static final Logger LOGGER = Logger.getLogger("global");
     int x;
     int y;
@@ -14,8 +14,9 @@ class CoordinateException implements Cloneable {
         this.y = y;
     }
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    CoordinateException(CoordinateException obj) {
+        x=obj.x;
+        y=obj.y;
     }
 
     public String equals(CoordinateException c3) {
@@ -24,7 +25,7 @@ class CoordinateException implements Cloneable {
         return result;
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args)  {
         try {
             Scanner sc = new Scanner(System.in);
             LOGGER.log(Level.INFO, "Enter the value x:");
@@ -32,7 +33,7 @@ class CoordinateException implements Cloneable {
             LOGGER.log(Level.INFO, "Enter the value y:");
             int y = sc.nextInt();
             CoordinateException c = new CoordinateException(x, y);
-            CoordinateException c2 = (CoordinateException) c.clone();
+            CoordinateException c2 = new CoordinateException(c);
             String s = c.equals(c2);
             LOGGER.info("Orginal object and clonable object is Same ?: ");
             LOGGER.info(s);
